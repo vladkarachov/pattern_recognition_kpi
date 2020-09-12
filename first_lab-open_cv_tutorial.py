@@ -13,6 +13,7 @@ if not os.path.exists('images'):
 def process_img(i):
     image2 = cv2.imread(file_pattern + str(i) + '.png')
     image2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
+    image2 = cv2.cvtColor(image2, cv2.COLOR_GRAY2BGR)
     start_point = (int(image2.shape[0] / 5), int(image2.shape[1] / 5))
     end_point = (int(image2.shape[0] / 5) + 100, int(image2.shape[1] / 5) + 100)
     cv2.rectangle(image2, start_point, end_point, color=(255, 0, 0), thickness=2)
@@ -50,7 +51,7 @@ fps = int(len(images_arr) / sec)
 # а вообще интересный момент
 output_size = image.shape[:2][::-1]
 # 0 в конце ето грейскейл
-out = cv2.VideoWriter('output.avi', fourcc, fps, output_size, 0)
+out = cv2.VideoWriter('output.avi', fourcc, fps, output_size)
 for frame in images_arr:
     out.write(frame)
 out.release()
